@@ -17,13 +17,15 @@ using std::vector;
 using std::ifstream;
 using std::istringstream;
 
-enum class State {kEmpty, kObstacle, kClosed, kPath};
+enum class State {kEmpty, kObstacle, kClosed, kPath, kStart, kFinish};
 
 // CellString converts each state to an appropriate string
 string CellString(State val){
     switch (val) {
         case State::kObstacle : return "⛰️   ";
         case State::kPath : return "🚗   ";
+        case State::kStart : return "🚦   ";
+        case State::kFinish : return "🏁   ";
         default : return "0   ";
     }
 }
@@ -176,6 +178,9 @@ vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal
         
         // check: reached goal
         if (goal[0] == x && goal[1] == y) {
+            // set start and finish icons
+            grid[start[0]][start[1]] = State::kStart;
+            grid[goal[0]][goal[1]] = State::kFinish;
             return grid;
         }
             
