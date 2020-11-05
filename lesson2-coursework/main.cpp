@@ -138,12 +138,12 @@ vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal
         CellSort(&open_nodes);
         
         // pop current node
-        vector<int> current = open_nodes.back();
+        vector<int> current_node = open_nodes.back();
         open_nodes.pop_back();
         
         // update grid position of popped node
-        x = current[0];
-        y = current[1];
+        x = current_node[0];
+        y = current_node[1];
         grid[x][y] = State::kPath;
         
         // check: reached goal
