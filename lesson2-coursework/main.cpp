@@ -124,22 +124,22 @@ vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal
     vector<vector<State>> solution;
     
     // create vector of open nodes
-    vector<vector<int>> nodes {};
+    vector<vector<int>> open_nodes {};
     
     // create start node
     int x = start[0];
     int y = start[1];
     int g = 0;
     int h = Heuristic(x, start[1], goal[0], goal[1]);
-    AddToOpen(x, y, g, h, nodes, grid);
+    AddToOpen(x, y, g, h, open_nodes, grid);
     
-    while (nodes.size() > 0) {
+    while (open_nodes.size() > 0) {
         // sort open nodes
-        CellSort(&nodes);
+        CellSort(&open_nodes);
         
         // pop current node
-        vector<int> current = nodes.back();
-        nodes.pop_back();
+        vector<int> current = open_nodes.back();
+        open_nodes.pop_back();
         
         // update grid position of popped node
         x = current[0];
