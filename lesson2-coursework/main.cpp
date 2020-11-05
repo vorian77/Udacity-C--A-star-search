@@ -104,14 +104,12 @@ void AddToOpen (int x, int y, int g, int h, vector<vector<int>> &nodes, vector<v
 
 bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
     // check input - x value
-    if (grid.size() < x) {
-        cout << "CheckValidCell: Invalid input value x: " << x << "/n";
+    if (x < 0 or x >= grid.size()) {
         return false;
     }
     
     // check input - y value
-    if (grid[x].size() < y) {
-        cout << "CheckValidCell: Invalid input value y: " << y << "/n";
+    if (y < 0 or y >= grid[x].size()) {
         return false;
     }
     
