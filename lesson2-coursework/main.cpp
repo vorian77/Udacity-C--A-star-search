@@ -102,6 +102,23 @@ void AddToOpen (int x, int y, int g, int h, vector<vector<int>> &nodes, vector<v
     grid[x][y] = State::kClosed;
 }
 
+bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
+    // check input - x value
+    if (grid.size() < x) {
+        cout << "CheckValidCell: Invalid input value x: " << x << "/n";
+        return false;
+    }
+    
+    // check input - y value
+    if (grid[x].size() < y) {
+        cout << "CheckValidCell: Invalid input value y: " << y << "/n";
+        return false;
+    }
+    
+    // return true if grid position x, y is empty
+    return (grid[x][y] == State::kEmpty);
+}
+
 vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal[2]) {
     // return the grid with a path from the start to the goal
     vector<vector<State>> solution;
