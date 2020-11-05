@@ -166,7 +166,7 @@ vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal
         CellSort(&open_nodes);
         
         // pop current node
-        vector<int> current_node = open_nodes.back();
+        current_node = open_nodes.back();
         open_nodes.pop_back();
         
         // update grid position of popped node
