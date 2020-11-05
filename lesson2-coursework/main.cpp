@@ -117,18 +117,48 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
     return (grid[x][y] == State::kEmpty);
 }
 
+void ExpandNeighbors (vector<int> &current_node, vector<vector<int>> &open_nodes, vector<vector<State>> &grid, int goal[2]) {
+    // set directional deltas used to check neighbors
+    const int delta[4][2] {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+    
+    // init vars for new node
+    int x2, y2, g2, h2;
+    
+    // get current node data
+    int x1 = current_node[0];
+    int y1 = current_node[1];
+    int g1 = current_node[2];
+        
+    // check neighbors
+    for (int i = 0; i < 4; i++) {
+        x2 = x1 + delta[i][0];
+        y2 = y1 + delta[i][1];
+        if (CheckValidCell(x2, y2, grid)) {
+            // increment g value for new node
+            g2 = g1 + 1;
+            
+            // compute h for new node to goal
+            h2 = Heuristic(x2, y2, goal[0], goal[1]);
+            
+            // add new node
+            AddToOpen(x2, y2, g2, h2, open_nodes, grid);
+        }
+    }
+}
+
 vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal[2]) {
     // return the grid with a path from the start to the goal
     vector<vector<State>> solution;
     
     // create vector of open nodes
     vector<vector<int>> open_nodes {};
+    vector<int> current_node;
     
     // create start node
     int x = start[0];
     int y = start[1];
     int g = 0;
-    int h = Heuristic(x, start[1], goal[0], goal[1]);
+    int h = Heuristic(x, y, goal[0], goal[1]);  // from start to goal
     AddToOpen(x, y, g, h, open_nodes, grid);
     
     while (open_nodes.size() > 0) {
@@ -150,10 +180,10 @@ vector<vector<State>> Search (vector<vector<State>> grid, int start[2], int goal
         }
             
         // expand search to current nodes neighbors
-        
+        ExpandNeighbors (current_node, open_nodes, grid, goal);
     }
     
-    // TODO - stub
+    // else, path not found
     cout << "No path found!" << "\n";
     return solution;
 }
@@ -164,8 +194,8 @@ int main() {
     vector<vector<State>> solution;
     
     // set board start and end
-    int start[2]={0, 0};
-    int goal[2]={4, 5};
+    int start[2] = {0, 0};
+    int goal[2] = {4, 5};
     
     // search
     solution = Search(grid, start, goal);
