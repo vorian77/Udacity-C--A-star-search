@@ -119,7 +119,7 @@ bool CheckValidCell(int x, int y, vector<vector<State>> &grid) {
 
 void ExpandNeighbors (vector<int> &current_node, vector<vector<int>> &open_nodes, vector<vector<State>> &grid, int goal[2]) {
     // set directional deltas used to check neighbors
-    const int delta[4][2] {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
+    constexpr int delta[4][2] {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
     
     // init vars for new node
     int x2, y2, g2, h2;
